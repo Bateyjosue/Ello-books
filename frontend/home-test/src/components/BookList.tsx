@@ -1,6 +1,11 @@
 import React from 'react';
-import { List, ListItem, ListItemText, Button, ListItemAvatar, Avatar } from '@mui/material';
-import { Book } from './BookAssigmentView';
+import { List, ListItem, ListItemText, Button, ListItemAvatar, Avatar, Divider } from '@mui/material';
+
+interface Book {
+  title: string;
+  author: string;
+  coverPhotoURL: string;
+}
 
 interface BookListProps {
   books: Book[];
@@ -8,25 +13,26 @@ interface BookListProps {
 }
 
 const BookList: React.FC<BookListProps> = ({ books, onAdd }) => {
-  if (books.length !== 0) {
-    <ListItem>
-      <ListItemText primary="No books found" />
-    </ListItem>
-  }
   return (
     <List>
-
       {books.map((book, index) => (
-        <ListItem key={index}>
-          <ListItemAvatar sx={{ width: 80, height: 80 }}>
-            <Avatar src={`src/${book.coverPhotoURL}`} alt={book.title} sx={{ borderRadius: 2, width: '100%', height: '100%' }}/>
-          </ListItemAvatar>
-          <ListItemText primary={book.title} secondary={book.author} sx={{marginLeft: '10px'}} />
-          <Button variant="contained" style={{backgroundColor: '#335c6e'}} onClick={() => onAdd(book)}>
-            Add
-          </Button>
-        </ListItem>
-        ))}
+        <React.Fragment key={index}>
+          <ListItem>
+            <ListItemAvatar sx={{ width: 80, height: 80 }}>
+              <Avatar
+                src={`src/${book.coverPhotoURL}`}
+                alt={book.title}
+                sx={{ borderRadius: 2, width: '100%', height: '100%' }}
+              />
+            </ListItemAvatar>
+            <ListItemText primary={book.title} sx={{marginLeft: '10px'}} secondary={book.author} />
+            <Button variant="contained" color="primary" sx={{backgroundColor: '#5acccc'}} onClick={() => onAdd(book)}>
+              Add
+            </Button>
+          </ListItem>
+          {index < books.length - 1 && <Divider />}
+        </React.Fragment>
+      ))}
     </List>
   );
 };
