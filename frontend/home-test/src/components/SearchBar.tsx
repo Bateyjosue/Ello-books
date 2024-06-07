@@ -28,6 +28,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         variant="outlined"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
+        margin='normal'
+        size='small'
       />
       <Button variant="contained" style={{backgroundColor: '#5acccc',borderRadius:'20px', marginLeft: '10px'}} onClick={handleSearch}>
         Search
