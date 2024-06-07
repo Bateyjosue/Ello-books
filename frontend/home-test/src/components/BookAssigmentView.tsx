@@ -63,7 +63,9 @@ const BookAssignmentView: React.FC = () => {
       borderRadius: 4
     },
   };
+  const uniqueSet= new Set(readingList)
 
+  const uniqueReadingBooks = Array.from(uniqueSet)
   return (
     <>
       <SearchBar onSearch={handleSearch} />
@@ -75,7 +77,7 @@ const BookAssignmentView: React.FC = () => {
           TabIndicatorProps={{ sx: { backgroundColor: '#fff' } }}
         >
           <Tab label={`Books List/count: ${books.length}`} {...a11yProps(0)} sx={customTabStyles} />
-          <Tab label={`Reading List/Count: ${readingList.length}`} {...a11yProps(1)} sx={customTabStyles} />
+          <Tab label={`Reading List/Count: ${uniqueReadingBooks.length}`} {...a11yProps(1)} sx={customTabStyles} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -85,7 +87,7 @@ const BookAssignmentView: React.FC = () => {
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <Grid item xs={6}>
-          <ReadingList books={readingList} onRemove={removeBookFromReadingList} />
+          <ReadingList books={uniqueReadingBooks} onRemove={removeBookFromReadingList} />
         </Grid>
       </CustomTabPanel>
     </>
