@@ -1,50 +1,58 @@
-import React, { useState } from 'react';
-import { Box,  Grid,  Tab, Tabs } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Box, Grid, Tab, Tabs } from '@mui/material';
 import SearchBar from './SearchBar';
 import BookList from './BookList';
 import ReadingList from './ReadingList';
 import { GET_BOOKS } from '../data/queries';
 import { useQuery } from '@apollo/client';
 
-interface Book {
+export interface Book {
   title: string;
   author: string;
+  coverPhotoURL: string;
 }
 
 const BookAssignmentView: React.FC = () => {
-  const { loading, error, data = []} = useQuery(GET_BOOKS)
-  const [books, setBooks] = useState<{ title: string; author: string }[]>(data.books|| []);
-  const [readingList, setReadingList] = useState<{ title: string; author: string }[]>([]);
+  const { loading, error, data } = useQuery(GET_BOOKS);
+  const [books, setBooks] = useState<Book[]>([]);
+  const [originalBooks, setOriginalBooks] = useState<Book[]>([]);
+  const [readingList, setReadingList] = useState<Book[]>([]);
+  const [value, setValue] = useState(0);
 
-  const [value, setValue] = React.useState(0);
+  useEffect(() => {
+    if (data && data.books) {
+      setBooks(data.books);
+      setOriginalBooks(data.books);
+    }
+  }, [data]);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const handleSearch = (searchTerm: string) => {
-    
-    const filteredBooks = books.filter((book: Book) =>
-      book.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setBooks(filteredBooks);
+    if (searchTerm === '') {
+      setBooks(originalBooks);
+    } else {
+      const filteredBooks = originalBooks.filter((book: Book) =>
+        book.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setBooks(filteredBooks);
+    }
   };
 
-  const addBookToReadingList = (book: { title: string; author: string }) => {
+  const addBookToReadingList = (book: Book) => {
     setReadingList([...readingList, book]);
   };
 
-  const removeBookFromReadingList = (bookToRemove: { title: string; author: string }) => {
+  const removeBookFromReadingList = (bookToRemove: Book) => {
     setReadingList(readingList.filter(book => book !== bookToRemove));
   };
 
   return (
-
-    /********************************************/
     <>
       <SearchBar onSearch={handleSearch} />
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -68,7 +76,6 @@ const BookAssignmentView: React.FC = () => {
 };
 
 export default BookAssignmentView;
-
 
 interface TabPanelProps {
   children?: React.ReactNode;
