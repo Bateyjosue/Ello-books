@@ -54,10 +54,13 @@ const BookAssignmentView: React.FC = () => {
 
   const customTabStyles = {
     indicator: {
-      backgroundColor: 'green',
+      backgroundColor: 'f76434',
     },
     "&.Mui-selected": {
       color: '#335c6e',
+      backgroundColor: '#cffafa',
+      fontWeight: 'bold',
+      borderRadius: 4
     },
   };
 
@@ -69,7 +72,7 @@ const BookAssignmentView: React.FC = () => {
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
-          TabIndicatorProps={{ sx: { backgroundColor: '#cffafa' } }}
+          TabIndicatorProps={{ sx: { backgroundColor: '#fff' } }}
         >
           <Tab label={`Books List/count: ${books.length}`} {...a11yProps(0)} sx={customTabStyles} />
           <Tab label={`Reading List/Count: ${readingList.length}`} {...a11yProps(1)} sx={customTabStyles} />
