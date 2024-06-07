@@ -29,7 +29,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <Button variant="contained" style={{backgroundColor: '#335c6e', marginLeft: '10px'}} onClick={handleSearch}>
+      <Button variant="contained" style={{backgroundColor: '#5acccc', marginLeft: '10px'}} onClick={handleSearch}>
         Search
       </Button>
     </div>
