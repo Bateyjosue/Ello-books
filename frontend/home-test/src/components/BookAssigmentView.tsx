@@ -52,13 +52,27 @@ const BookAssignmentView: React.FC = () => {
     setReadingList(readingList.filter(book => book !== bookToRemove));
   };
 
+  const customTabStyles = {
+    indicator: {
+      backgroundColor: 'green',
+    },
+    "&.Mui-selected": {
+      color: '#335c6e',
+    },
+  };
+
   return (
     <>
       <SearchBar onSearch={handleSearch} />
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label={`Books List/count: ${books.length}`} {...a11yProps(0)} />
-          <Tab label={`Reading List/Count: ${readingList.length}`} {...a11yProps(1)} />
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+          TabIndicatorProps={{ sx: { backgroundColor: '#cffafa' } }}
+        >
+          <Tab label={`Books List/count: ${books.length}`} {...a11yProps(0)} sx={customTabStyles} />
+          <Tab label={`Reading List/Count: ${readingList.length}`} {...a11yProps(1)} sx={customTabStyles} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>

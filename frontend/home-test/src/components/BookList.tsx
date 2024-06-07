@@ -26,7 +26,7 @@ const BookList: React.FC<BookListProps> = ({ books, onAdd }) => {
               />
             </ListItemAvatar>
             <ListItemText primary={book.title} sx={{marginLeft: '10px'}} secondary={book.author} />
-            <Button variant="contained" color="primary" sx={{backgroundColor: '#5acccc'}} onClick={() => onAdd(book)}>
+            <Button variant="contained" color="primary" sx={{backgroundColor: '#5acccc', borderRadius:'50px',}} onClick={() => onAdd(book)}>
               Add
             </Button>
           </ListItem>
