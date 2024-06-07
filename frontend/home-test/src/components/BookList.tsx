@@ -7,16 +7,22 @@ interface BookListProps {
 }
 
 const BookList: React.FC<BookListProps> = ({ books, onAdd }) => {
+  if (books.length !== 0) {
+    <ListItem>
+      <ListItemText primary="No books found" />
+    </ListItem>
+  }
   return (
     <List>
-      {books.map((book, index) => (
+
+        {books.map((book, index) => (
         <ListItem key={index}>
           <ListItemText primary={book.title} secondary={book.author} />
-          <Button variant="contained" color="primary" onClick={() => onAdd(book)}>
+          <Button variant="contained" style={{backgroundColor: '#335c6e'}} onClick={() => onAdd(book)}>
             Add
           </Button>
         </ListItem>
-      ))}
+        ))}
     </List>
   );
 };

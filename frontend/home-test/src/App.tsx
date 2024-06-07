@@ -1,8 +1,12 @@
 import BookAssignmentView from "./components/BookAssigmentView";
+import { ApolloProvider } from '@apollo/client';
+import client from './apollo';
 
 function App() {
   return (
-   <BookAssignmentView />
+    <ApolloProvider client={client}>
+      <BookAssignmentView />
+    </ApolloProvider>
   )
 }
 

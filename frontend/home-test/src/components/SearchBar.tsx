@@ -13,14 +13,23 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-    <div>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      height: '50px',
+      padding: '10px',
+      margin: '10px',
+    }}>
       <TextField
         label="Search Books"
         variant="outlined"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <Button variant="contained" color="primary" onClick={handleSearch}>
+      <Button variant="contained" style={{backgroundColor: '#335c6e', marginLeft: '10px'}} onClick={handleSearch}>
         Search
       </Button>
     </div>

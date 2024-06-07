@@ -12,7 +12,7 @@ const ReadingList: React.FC<ReadingListProps> = ({ books, onRemove }) => {
       {books.map((book, index) => (
         <ListItem key={index}>
           <ListItemText primary={book.title} secondary={book.author} />
-          <Button variant="contained" color="secondary" onClick={() => onRemove(book)}>
+          <Button variant="contained" style={{backgroundColor: '#f76434'}} onClick={() => onRemove(book)}>
             Remove
           </Button>
         </ListItem>
