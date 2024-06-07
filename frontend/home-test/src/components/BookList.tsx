@@ -1,9 +1,10 @@
 import React from 'react';
-import { List, ListItem, ListItemText, Button } from '@mui/material';
+import { List, ListItem, ListItemText, Button, ListItemAvatar, Avatar } from '@mui/material';
+import { Book } from './BookAssigmentView';
 
 interface BookListProps {
-  books: { title: string; author: string }[];
-  onAdd: (book: { title: string; author: string }) => void;
+  books: Book[];
+  onAdd: (book: Book) => void;
 }
 
 const BookList: React.FC<BookListProps> = ({ books, onAdd }) => {
@@ -15,9 +16,12 @@ const BookList: React.FC<BookListProps> = ({ books, onAdd }) => {
   return (
     <List>
 
-        {books.map((book, index) => (
+      {books.map((book, index) => (
         <ListItem key={index}>
-          <ListItemText primary={book.title} secondary={book.author} />
+          <ListItemAvatar sx={{ width: 80, height: 80 }}>
+            <Avatar src={`src/${book.coverPhotoURL}`} alt={book.title} sx={{ borderRadius: 2, width: '100%', height: '100%' }}/>
+          </ListItemAvatar>
+          <ListItemText primary={book.title} secondary={book.author} sx={{marginLeft: '10px'}} />
           <Button variant="contained" style={{backgroundColor: '#335c6e'}} onClick={() => onAdd(book)}>
             Add
           </Button>
