@@ -18,11 +18,11 @@ const BookList: React.FC<BookListProps> = ({ books, onAdd }) => {
       {books.map((book, index) => (
         <React.Fragment key={index}>
           <ListItem>
-            <ListItemAvatar sx={{ width: 80, height: 80 }}>
+            <ListItemAvatar sx={{  width: 140, height: 180}}>
               <Avatar
                 src={`src/${book.coverPhotoURL}`}
                 alt={book.title}
-                sx={{ borderRadius: 2, width: '100%', height: '100%' }}
+                sx={{ borderRadius: 2, width: '100%', height: '100%', objectFit: 'contain', }}
               />
             </ListItemAvatar>
             <ListItemText primary={book.title} sx={{marginLeft: '10px'}} secondary={book.author} />

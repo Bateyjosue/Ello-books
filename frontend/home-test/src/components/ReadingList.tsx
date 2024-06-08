@@ -1,6 +1,7 @@
 import React from 'react';
 import { List, ListItem, ListItemText, Button, ListItemAvatar, Avatar, Divider } from '@mui/material';
 import { Book } from './BookAssigmentView';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface ReadingListProps {
   books: Book[];
@@ -13,7 +14,7 @@ const ReadingList: React.FC<ReadingListProps> = ({ books, onRemove }) => {
       {books.map((book, index) => (
         <React.Fragment key={index}>
           <ListItem>
-            <ListItemAvatar sx={{ width: 80, height: 80 }}>
+            <ListItemAvatar sx={{ width: 120, height: 180 }}>
               <Avatar
                 src={`src/${book.coverPhotoURL}`}
                 alt={book.title}
@@ -23,10 +24,10 @@ const ReadingList: React.FC<ReadingListProps> = ({ books, onRemove }) => {
             <ListItemText primary={book.title} sx={{marginLeft: '10px'}} secondary={book.author} />
             <Button
               variant="contained"
-              sx={{ backgroundColor: '#f76434', borderRadius:'20px', }}
+              sx={{ backgroundColor: '#f76434', borderRadius:10, width: '32px', height: '32px'}}
               onClick={() => onRemove(book)}
             >
-              Remove
+              <DeleteIcon/>
             </Button>
           </ListItem>
           {index < books.length - 1 && <Divider />} {/* Add a divider after each item except the last one */}
