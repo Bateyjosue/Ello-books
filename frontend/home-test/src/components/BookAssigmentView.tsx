@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Grid, Tab, Tabs } from '@mui/material';
+import { Box, CircularProgress, Grid, Tab, Tabs } from '@mui/material';
 import SearchBar from './SearchBar';
 import BookList from './BookList';
 import ReadingList from './ReadingList';
@@ -30,7 +30,6 @@ const BookAssignmentView: React.FC = () => {
     setValue(newValue);
   };
 
-  if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
   const handleSearch = (searchTerm: string) => {
@@ -83,6 +82,13 @@ const BookAssignmentView: React.FC = () => {
       <CustomTabPanel value={value} index={0}>
         <Grid item xs={6}>
           <BookList books={books} onAdd={addBookToReadingList} />
+          {
+            (loading) && (
+              <Box sx={{  display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
+                <CircularProgress />
+              </Box>
+            )
+          }
         </Grid>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
