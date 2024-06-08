@@ -21,7 +21,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       width: '100%',
       height: '50px',
       padding: '10px',
-      margin: '10px',
+      marginTop: '30px',
+      marginBottom: '50px',
     }}>
       <TextField
         label="Search Books"
@@ -30,6 +31,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         onChange={(e) => setSearchTerm(e.target.value)}
         margin='normal'
         size='small'
+        fullWidth
       />
       <Button variant="contained" style={{backgroundColor: '#5acccc',borderRadius:'20px', marginLeft: '10px'}} onClick={handleSearch}>
         Search

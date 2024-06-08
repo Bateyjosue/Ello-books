@@ -44,6 +44,7 @@ const Header: React.FC = () => {
     <Container maxWidth="xl" sx={{
       lineHeight: '50px',
       height: '100vh',
+      mb: 20,
     }}>
       <Box display="flex" justifyContent="space-between" alignItems="center" py={3}>
         <Box display="flex" alignItems="center" gap={2}>
@@ -56,7 +57,14 @@ const Header: React.FC = () => {
       </Box>
       <MainContainer >
         <ReadingElephant src="./src/assets/hero.png" alt="Reading Elephant" />
-        <Typography variant="h2" component="h1" fontWeight="bold" gutterBottom>
+        <Typography variant="h2" component="h1" fontWeight="bold" gutterBottom sx={{
+            fontSize: {
+              xs: '3rem', // smaller font size for mobile devices
+              sm: '3rem', // medium font size for tablets
+              md: '4rem', // larger font size for desktops
+              lg: '5rem', // largest font size for larger screens
+            },
+          }}>
           Confident, Independent Reading
         </Typography>
         <Typography variant="h5" component="p" gutterBottom>
