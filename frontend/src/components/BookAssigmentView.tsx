@@ -4,6 +4,7 @@ import SearchBar from './SearchBar';
 import BookList from './BookList';
 import { GET_BOOKS } from '../data/queries';
 import { useQuery } from '@apollo/client';
+import Badge from '@mui/material/Badge';
 
 export interface Book {
   title: string;
@@ -51,16 +52,29 @@ const BookAssignmentView: React.FC = () => {
   };
 
   const customTabStyles = {
+    padding: '0px 30px',
+    marginRight: '20px',
+
     indicator: {
       backgroundColor: 'f76434',
     },
     "&.Mui-selected": {
       color: '#335c6e',
-      backgroundColor: '#cffafa',
+      backgroundColor: '#28b8b820',
       fontWeight: 'bold',
       borderRadius: 4,
     },
   };
+
+  const badgeStyle = {
+    '& .MuiBadge-badge': {
+      backgroundColor: 'transparent',
+      color: '#f76434',
+      paddingLeft: '28px',
+      paddingTop: '5px',
+      fontWeight: 'bold'
+    }
+  }
 
   const uniqueReadingBooks = Array.from(new Set(readingList));
 
@@ -74,8 +88,22 @@ const BookAssignmentView: React.FC = () => {
           aria-label="basic tabs example"
           TabIndicatorProps={{ sx: { backgroundColor: '#fff' } }}
         >
-          <Tab label={`Books List/count: ${books.length}`} {...a11yProps(0)} sx={customTabStyles} />
-          <Tab label={`Reading List/Count: ${uniqueReadingBooks.length}`} {...a11yProps(1)} sx={customTabStyles} />
+          <Tab
+            label={
+              <Badge badgeContent={books.length} color="primary" sx={badgeStyle}>
+                All Books
+              </Badge>
+            }
+            {...a11yProps(0)}
+            sx={customTabStyles} />
+          <Tab
+            label={
+              <Badge badgeContent={uniqueReadingBooks.length} color="primary" sx={badgeStyle}>
+                My Reading
+              </Badge>
+            }
+            {...a11yProps(1)}
+            sx={customTabStyles} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
