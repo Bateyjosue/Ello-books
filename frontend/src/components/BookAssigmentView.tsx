@@ -80,7 +80,7 @@ const BookAssignmentView: React.FC = () => {
       </Box>
       <CustomTabPanel value={value} index={0}>
         <Grid item xs={6}>
-          <BookList books={books} onAction={addBookToReadingList} isAddMode={true} />
+          <BookList books={books} onAction={addBookToReadingList} isAddMode={true} readingList={uniqueReadingBooks} />
           {loading && (
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
               <CircularProgress />
@@ -90,7 +90,7 @@ const BookAssignmentView: React.FC = () => {
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <Grid item xs={6}>
-          <BookList books={uniqueReadingBooks} onAction={removeBookFromReadingList} isAddMode={false} />
+          <BookList books={uniqueReadingBooks} onAction={removeBookFromReadingList} isAddMode={false} readingList={uniqueReadingBooks} />
         </Grid>
       </CustomTabPanel>
     </>
