@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Box, CircularProgress, Grid, Tab, Tabs } from '@mui/material';
 import SearchBar from './SearchBar';
 import BookList from './BookList';
-import ReadingList from './ReadingList';
 import { GET_BOOKS } from '../data/queries';
 import { useQuery } from '@apollo/client';
 
@@ -59,12 +58,12 @@ const BookAssignmentView: React.FC = () => {
       color: '#335c6e',
       backgroundColor: '#cffafa',
       fontWeight: 'bold',
-      borderRadius: 4
+      borderRadius: 4,
     },
   };
-  const uniqueSet= new Set(readingList)
 
-  const uniqueReadingBooks = Array.from(uniqueSet)
+  const uniqueReadingBooks = Array.from(new Set(readingList));
+
   return (
     <>
       <SearchBar onSearch={handleSearch} />
@@ -81,19 +80,17 @@ const BookAssignmentView: React.FC = () => {
       </Box>
       <CustomTabPanel value={value} index={0}>
         <Grid item xs={6}>
-          <BookList books={books} onAdd={addBookToReadingList} />
-          {
-            (loading) && (
-              <Box sx={{  display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
-                <CircularProgress />
-              </Box>
-            )
-          }
+          <BookList books={books} onAction={addBookToReadingList} isAddMode={true} />
+          {loading && (
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
+              <CircularProgress />
+            </Box>
+          )}
         </Grid>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <Grid item xs={6}>
-          <ReadingList books={uniqueReadingBooks} onRemove={removeBookFromReadingList} />
+          <BookList books={uniqueReadingBooks} onAction={removeBookFromReadingList} isAddMode={false} />
         </Grid>
       </CustomTabPanel>
     </>
