@@ -1,7 +1,8 @@
 import React from 'react';
-import { List, ListItem, ListItemText, Button, ListItemAvatar, Avatar, Divider } from '@mui/material';
+import { List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
 import { Book } from './BookAssigmentView';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Box } from '@mui/system';
 
 interface ReadingListProps {
   books: Book[];
@@ -13,24 +14,36 @@ const ReadingList: React.FC<ReadingListProps> = ({ books, onRemove }) => {
     <List>
       {books.map((book, index) => (
         <React.Fragment key={index}>
-          <ListItem>
+          <ListItem sx={{
+              padding: 2,
+            '&:hover': {
+              backgroundColor: '#335c6e10',
+              borderRadius: 5,
+            }
+          }}>
             <ListItemAvatar sx={{ width: 120, height: 180 }}>
               <Avatar
                 src={`src/${book.coverPhotoURL}`}
                 alt={book.title}
-                sx={{ borderRadius: 2, width: '100%', height: '100%' }}
+                sx={{ borderRadius: 2, width: '100%', height: '100%', objectFit: 'contain' }}
               />
             </ListItemAvatar>
             <ListItemText primary={book.title} sx={{marginLeft: '10px'}} secondary={book.author} />
-            <Button
-              variant="contained"
-              sx={{ backgroundColor: '#f76434', borderRadius:10, width: '32px', height: '32px'}}
+            <Box
+              sx={
+                {
+                  backgroundColor: 'transparent',
+                  borderRadius: 1,
+                  width: '1rem',
+                  height: 'fit',
+                }
+              }
               onClick={() => onRemove(book)}
             >
-              <DeleteIcon/>
-            </Button>
+              <DeleteIcon sx={{  color: '#f76434', cursor: 'pointer'}}/>
+            </Box>
           </ListItem>
-          {index < books.length - 1 && <Divider />} {/* Add a divider after each item except the last one */}
+          {/* {index < books.length - 1 && <Divider />} Add a divider after each item except the last one */}
         </React.Fragment>
       ))}
     </List>

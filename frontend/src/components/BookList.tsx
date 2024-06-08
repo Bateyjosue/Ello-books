@@ -1,5 +1,7 @@
 import React from 'react';
-import { List, ListItem, ListItemText, Button, ListItemAvatar, Avatar, Divider } from '@mui/material';
+import { List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@mui/material';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { Box } from '@mui/system';
 
 interface Book {
   title: string;
@@ -17,8 +19,14 @@ const BookList: React.FC<BookListProps> = ({ books, onAdd }) => {
     <List>
       {books.map((book, index) => (
         <React.Fragment key={index}>
-          <ListItem>
-            <ListItemAvatar sx={{  width: 140, height: 180}}>
+          <ListItem sx={{
+              padding: 2,
+            '&:hover': {
+              backgroundColor: '#335c6e10',
+              borderRadius: 5,
+            }
+          }}>
+            <ListItemAvatar sx={{  width: 120, height: 180}}>
               <Avatar
                 src={`src/${book.coverPhotoURL}`}
                 alt={book.title}
@@ -26,11 +34,10 @@ const BookList: React.FC<BookListProps> = ({ books, onAdd }) => {
               />
             </ListItemAvatar>
             <ListItemText primary={book.title} sx={{marginLeft: '10px'}} secondary={book.author} />
-            <Button variant="contained" color="primary" sx={{backgroundColor: '#5acccc', borderRadius:'50px',}} onClick={() => onAdd(book)}>
-              Add
-            </Button>
+            <Box color="primary" sx={{backgroundColor: 'transparent', borderRadius:'50px',}} onClick={() => onAdd(book)}>
+              <AddCircleIcon sx={{  color: '#5acccc', cursor: 'pointer'}} />
+            </Box>
           </ListItem>
-          {index < books.length - 1 && <Divider />}
         </React.Fragment>
       ))}
     </List>
