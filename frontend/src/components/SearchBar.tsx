@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { TextField, Button } from '@mui/material';
+import { InputAdornment, TextField } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
@@ -8,9 +9,11 @@ interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const handleSearch = () => {
-    onSearch(searchTerm);
-  };
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    onSearch(value);
+  }
 
   return (
     <div style={{
@@ -28,14 +31,19 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         label="Search Books"
         variant="outlined"
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onInput={handleInput}
         margin='normal'
         size='small'
         fullWidth
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
       />
-      <Button variant="contained" style={{backgroundColor: '#5acccc',borderRadius:'20px', marginLeft: '10px'}} onClick={handleSearch}>
-        Search
-      </Button>
+      
     </div>
   );
 };
