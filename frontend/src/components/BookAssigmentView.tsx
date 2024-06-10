@@ -10,6 +10,8 @@ export interface Book {
   title: string;
   author: string;
   coverPhotoURL: string;
+  readingLevel: string
+
 }
 
 const BookAssignmentView: React.FC = () => {
@@ -106,21 +108,24 @@ const BookAssignmentView: React.FC = () => {
             sx={customTabStyles} />
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        <Grid item xs={6}>
-          <BookList books={books} onAction={addBookToReadingList} isAddMode={true} readingList={uniqueReadingBooks} />
-          {loading && (
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
-              <CircularProgress />
-            </Box>
-          )}
-        </Grid>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <Grid item xs={6}>
-          <BookList books={uniqueReadingBooks} onAction={removeBookFromReadingList} isAddMode={false} readingList={uniqueReadingBooks} />
-        </Grid>
-      </CustomTabPanel>
+      <main>
+        <CustomTabPanel value={value} index={0} >
+          <Grid item xs={6}>
+            <BookList books={books} onAction={addBookToReadingList} isAddMode={true} readingList={uniqueReadingBooks} />
+            {loading && (
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20, }}>
+                <CircularProgress />
+              </Box>
+            )}
+          </Grid>
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          <Grid item xs={6}>
+            <BookList books={uniqueReadingBooks} onAction={removeBookFromReadingList} isAddMode={false} readingList={uniqueReadingBooks} />
+          </Grid>
+        </CustomTabPanel>
+        
+      </main>
     </>
   );
 };
