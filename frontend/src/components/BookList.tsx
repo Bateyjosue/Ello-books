@@ -29,14 +29,23 @@ const BookList: React.FC<BookListProps> = ({ books, onAction, isAddMode, reading
                 borderRadius: 5,
               }
             }}>
-              <ListItemAvatar sx={{ width: 180, height: 120 }}>
+              <ListItemAvatar sx={{
+                width: {
+                  md: '180px',sm: '12px'
+                }, height: 120 }}>
                 <Avatar
                   src={`src/${book.coverPhotoURL}`}
                   alt={book.title}
                   sx={{ borderRadius: 2, width: '100%', height: '100%', objectFit: 'contain' }}
                 />
               </ListItemAvatar>
-              <ListItemText primary={book.title} sx={{ marginLeft: '10px', 'span': { fontSize: '1.2em', fontWeight: 'bold' },'h5':{border: '1px solid blue'}  }} secondary={book.author} />
+              <ListItemText primary={book.title} sx={{
+                marginLeft: '10px', 'span': {
+                  fontSize: {
+                    md: '1.2em',
+                    sm: '.6em'
+                    
+              }, fontWeight: 'bold' },'h5':{border: '1px solid blue'},  }} secondary={book.author} />
               <Box
                 sx={{ backgroundColor: 'transparent', borderRadius: 1, width: '1rem', height: 'fit' }}
               >
