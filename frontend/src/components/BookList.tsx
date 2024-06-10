@@ -13,6 +13,10 @@ interface BookListProps {
 }
 
 const BookList: React.FC<BookListProps> = ({ books, onAction, isAddMode, readingList }) => {
+
+   if (!books.length) {
+     return <div>No Book was found</div>;
+   }
   return (
     <List sx={{ mx: '-30px'}}>
       {books.map((book, index) => {
@@ -60,7 +64,8 @@ const BookList: React.FC<BookListProps> = ({ books, onAction, isAddMode, reading
             </ListItem>
           </React.Fragment>
         )
-      })}
+      })
+      }
     </List>
   );
 };

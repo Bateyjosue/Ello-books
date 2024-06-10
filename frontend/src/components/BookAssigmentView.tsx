@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, CircularProgress, Grid, Tab, Tabs } from '@mui/material';
+import { Box, CircularProgress, Grid, Tab, Tabs, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
 import SearchBar from './SearchBar';
 import BookList from './BookList';
 import { GET_BOOKS } from '../data/queries';
@@ -10,8 +10,7 @@ export interface Book {
   title: string;
   author: string;
   coverPhotoURL: string;
-  readingLevel: string
-
+  readingLevel: string;
 }
 
 const BookAssignmentView: React.FC = () => {
@@ -20,19 +19,21 @@ const BookAssignmentView: React.FC = () => {
   const [originalBooks, setOriginalBooks] = useState<Book[]>([]);
   const [readingList, setReadingList] = useState<Book[]>([]);
   const [value, setValue] = useState(0);
+  const [errorDialogOpen, setErrorDialogOpen] = useState(false);
 
   useEffect(() => {
     if (data && data.books) {
       setBooks(data.books);
       setOriginalBooks(data.books);
     }
-  }, [data]);
+    if (error) {
+      setErrorDialogOpen(true);
+    }
+  }, [data, error]);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
-  if (error) return <p>Error: {error.message}</p>;
 
   const handleSearch = (searchTerm: string) => {
     if (searchTerm === '') {
@@ -56,7 +57,6 @@ const BookAssignmentView: React.FC = () => {
   const customTabStyles = {
     padding: '0px 30px',
     marginRight: '20px',
-
     indicator: {
       backgroundColor: 'f76434',
     },
@@ -76,7 +76,7 @@ const BookAssignmentView: React.FC = () => {
       paddingTop: '5px',
       fontWeight: 'bold'
     }
-  }
+  };
 
   const uniqueReadingBooks = Array.from(new Set(readingList));
 
@@ -97,7 +97,8 @@ const BookAssignmentView: React.FC = () => {
               </Badge>
             }
             {...a11yProps(0)}
-            sx={customTabStyles} />
+            sx={customTabStyles}
+          />
           <Tab
             label={
               <Badge badgeContent={uniqueReadingBooks.length} color="primary" sx={badgeStyle}>
@@ -105,15 +106,16 @@ const BookAssignmentView: React.FC = () => {
               </Badge>
             }
             {...a11yProps(1)}
-            sx={customTabStyles} />
+            sx={customTabStyles}
+          />
         </Tabs>
       </Box>
       <main>
-        <CustomTabPanel value={value} index={0} >
+        <CustomTabPanel value={value} index={0}>
           <Grid item xs={6}>
             <BookList books={books} onAction={addBookToReadingList} isAddMode={true} readingList={uniqueReadingBooks} />
             {loading && (
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20, }}>
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
                 <CircularProgress />
               </Box>
             )}
@@ -124,8 +126,20 @@ const BookAssignmentView: React.FC = () => {
             <BookList books={uniqueReadingBooks} onAction={removeBookFromReadingList} isAddMode={false} readingList={uniqueReadingBooks} />
           </Grid>
         </CustomTabPanel>
-        
       </main>
+      <Dialog open={errorDialogOpen} onClose={() => setErrorDialogOpen(false)}>
+        <DialogTitle>Error</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {error ? error.message + '. Please contact the admin' : 'An unexpected error occurred.'}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setErrorDialogOpen(false)} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
